@@ -1,0 +1,51 @@
+# See https://torsion.org/borgmatic/docs/reference/configuration/
+
+constants:
+  system: /mnt/c
+  home: /mnt/c/Users/username
+
+source_directories:
+  # Windows user directory
+  - "{home}"
+
+  # Windows program data
+  - "{system}/ProgramData"
+
+exclude_patterns:
+  # Cache and temporary directories
+  - "*[Cc]ache*/"
+  - "*[Tt]emp/"
+  - "*[Tt]emporary*/"
+  - "*/__pycache__"
+  - "*/node_modules"
+
+  # No need to backup the backups
+  - "{home}/AppData/Roaming/borgmatic-windows-tray/logs/borgmatic-windows*.log"
+  - "{home}/Backups"
+  - "{home}/OneDrive/Backups"
+
+  # Other excluded directories
+
+  # Paths that cause errors
+  - "*/LOCK" # Invalid argument (multiple programs use this)
+  - "*.lock"
+  - "*.lockfile"
+
+repositories:
+  - path: "{home}/Backups/borg-windows"
+    label: local
+encryption_passphrase: "passphrase"
+
+extra_borg_options:
+  create: --list --stats
+  prune: --list --stats
+
+source_directories_must_exist: true
+compression: zstd,8
+
+keep_within: 2d
+keep_hourly: 24
+keep_daily: 30
+keep_weekly: 8
+keep_monthly: 12
+keep_yearly: 2

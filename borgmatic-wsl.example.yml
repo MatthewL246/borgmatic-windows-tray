@@ -1,0 +1,39 @@
+# See https://torsion.org/borgmatic/docs/reference/configuration/
+
+constants:
+  win_home: /mnt/c/Users/username
+
+source_directories:
+  - /root
+  - /home
+  - /etc
+  - /var
+
+exclude_patterns:
+  # Cache and temporary directories
+  - "*[Cc]ache*/"
+  - "*[Tt]emp/"
+  - "*[Tt]emporary*/"
+  - "*/__pycache__"
+  - "*/node_modules"
+
+  # Other excluded directories
+
+repositories:
+  - path: "{win_home}/Backups/borg-ubuntu-wsl"
+    label: local
+encryption_passphrase: "passphrase"
+
+extra_borg_options:
+  create: --list --stats
+  prune: --list --stats
+
+source_directories_must_exist: true
+compression: zstd,8
+
+keep_within: 2d
+keep_hourly: 24
+keep_daily: 30
+keep_weekly: 8
+keep_monthly: 12
+keep_yearly: 2
