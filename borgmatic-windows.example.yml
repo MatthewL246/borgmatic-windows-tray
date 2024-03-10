@@ -12,21 +12,19 @@ source_directories:
   - "{system}/ProgramData"
 
 exclude_patterns:
-  # Cache and temporary directories
-  - "*[Cc]ache*/"
-  - "*[Tt]emp/"
-  - "*[Tt]emporary*/"
-  - "*/__pycache__"
+  # Node modules
   - "*/node_modules"
 
+  # Avoid backing up the current log file because it is in use
+  - "{home}/AppData/Roaming/borgmatic-windows-tray/logs/borgmatic-windows.log"
+
   # No need to backup the backups
-  - "{home}/AppData/Roaming/borgmatic-windows-tray/logs/borgmatic-windows*.log"
   - "{home}/Backups"
   - "{home}/OneDrive/Backups"
 
   # Other excluded directories
 
-  # Paths that cause errors
+  # Paths that often cause errors
   - "*/LOCK" # Invalid argument (multiple programs use this)
   - "*.lock"
   - "*.lockfile"

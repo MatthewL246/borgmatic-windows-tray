@@ -10,11 +10,7 @@ source_directories:
   - /var
 
 exclude_patterns:
-  # Cache and temporary directories
-  - "*[Cc]ache*/"
-  - "*[Tt]emp/"
-  - "*[Tt]emporary*/"
-  - "*/__pycache__"
+  # Node modules
   - "*/node_modules"
 
   # Other excluded directories
