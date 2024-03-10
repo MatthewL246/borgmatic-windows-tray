@@ -66,6 +66,11 @@ class BorgmaticSystray(SysTrayIcon):
                         lambda _, config=backup_config: self.output_queue.put(q_req.DisableScheduledBackups(config)),
                     ),
                     (
+                        "Edit backup config",
+                        "./icons/logs.ico",
+                        lambda _, config=backup_config: subprocess.Popen([self.config.editor, config.config_file]),
+                    ),
+                    (
                         "Analyze logs",
                         "./icons/analyze.ico",
                         lambda _, config=backup_config: self.output_queue.put(
@@ -99,7 +104,16 @@ class BorgmaticSystray(SysTrayIcon):
                 (
                     "Open terminal",
                     "./icons/terminal.ico",
-                    lambda _: subprocess.Popen(["wt.exe", "-w", "0", "-d", str(self.config.config_dir), "wsl.exe"]),
+                    lambda _: subprocess.Popen(
+                        [
+                            "wt.exe",
+                            "-w",
+                            "0",
+                            "-d",
+                            str(self.config.config_dir),
+                            "wsl.exe",
+                        ]
+                    ),
                 ),
                 (
                     "View logs",
